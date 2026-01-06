@@ -39,17 +39,15 @@ function updateCharacterCount(inputId, counterId, maxLength) {
     const input = $(`#${inputId}`);
     const counter = $(`#${counterId}`);
 
-    input.on('input', () => {
+    const update = () => {
         const length = input.val().length;
         const remaining = maxLength-length;
         counter.text(`残り${remaining}文字`);
 
-        if (length > maxLength) {
-            counter.addClass('error');
-        } else {
-            counter.removeClass('error');
-        }
-    });
+        counter.toggleClass('error',remaining < 0);
+    };
+    input.on('input',update);
+    update();
 }
 
 // 入力値のバリデーション
@@ -120,14 +118,16 @@ function escapeHtml(str) {
 
 // タイムスタンプのフォーマット
 function formatTimestamp(timestamp) {
-    const date = new Date(timestamp);
-    return date.toLocaleString('ja-JP', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
+    const diff = Date.now() - timestamp;
+    const sec = Math.floor(diff / 1000);
+    const min = Math.floor(sec / 60);
+    const hour = Math.floor(min / 60);
+    const day = Math.floor(hour / 24);
+
+    if(sec < 60) return '${sec}秒前';
+    if(min < 60) return '${min}分前';
+    if(hour < 24) return '${hour}時間前';
+    return'&{day}日前';
 }
 
 // 投稿のHTML要素を生成
