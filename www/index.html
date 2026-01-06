@@ -83,6 +83,7 @@ function validateContent(content) {
 
 // 投稿処理
 function createPost(author, content) {
+    
     if (!validateInput(author, content)) return;
 
     const button = $('#postButton');
@@ -91,6 +92,7 @@ function createPost(author, content) {
     const postData = {
         author: author,
         content: content,
+        
         timestamp: firebase.database.ServerValue.TIMESTAMP
     };
 
@@ -101,6 +103,8 @@ function createPost(author, content) {
         $('#contentInput').val('');
         updateCharacterCount('authorInput', 'authorCount', 20);
         updateCharacterCount('contentInput', 'contentCount', 1000);
+
+
     })
     .catch((error) => {
         showMessage('投稿に失敗しました：' + error.message, 'error');
