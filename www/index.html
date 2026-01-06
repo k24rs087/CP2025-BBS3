@@ -124,10 +124,10 @@ function formatTimestamp(timestamp) {
     const hour = Math.floor(min / 60);
     const day = Math.floor(hour / 24);
 
-    if(sec < 60) return '${sec}秒前';
-    if(min < 60) return '${min}分前';
-    if(hour < 24) return '${hour}時間前';
-    return'&{day}日前';
+    if(sec < 60) return `${sec}秒前`;
+    if(min < 60) return `${min}分前`;
+    if(hour < 24) return `${hour}時間前`;
+    return`${day}日前`;
 }
 
 // 投稿のHTML要素を生成
