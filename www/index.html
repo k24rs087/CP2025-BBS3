@@ -19,6 +19,11 @@
 let postsRef;
 let postsListener = null;
 
+function changeBg(color){
+    document.body.style.backgroundColor = color;
+    localStorage.setItem('bgColor',color);
+}
+
 // メッセージ表示処理
 function showMessage(message, type = 'success') {
     const messageArea = $('#messageArea');
@@ -350,6 +355,9 @@ window.addEventListener('unload', function() {
             </div>
             <div class="button-group">
                 <button id="postButton" class="btn-primary">投稿する</button>
+                <button onclick="changeBg('white')">白</button>
+                <button onclick="changeBg('lightblue')">青</button>
+                <button onclick="changeBg('lightgreen')">緑</button>
             </div>
         </div>
 
